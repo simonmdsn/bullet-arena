@@ -88,8 +88,6 @@ public class BulletArenaGame extends ApplicationAdapter {
         stage.addActor(player);
         tiledMap = assets.get("bigbig-arena.tmx", TiledMap.class);
         bitmapFont = new BitmapFont();
-//        TextActor textActor = new TextActor("hello world!", bitmapFont, 1, 100, 100);
-//        stage.addActor(textActor);
         orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 4, batch);
         TiledMapTileLayer tiledMapTileLayer = (TiledMapTileLayer) tiledMap.getLayers().get(0);
         for (int i = 0; i < tiledMapTileLayer.getWidth(); i++) {

@@ -1,0 +1,16 @@
+{
+  "platform": "linux64",
+  "jdk": "/home/simon/src/jdk-17.0.1+12/",
+  "executable": "myapp",
+  "classpath": [
+    "desktop/build/libs/desktop-1.0.jar"
+  ],
+  "mainclass": "com.simonmdsn.bulletarena.DesktopLauncher",
+  "vmargs": [
+    "Xmx1G"
+  ],
+  "resources": [
+    "assets"
+  ],
+  "output": "test"
+}
