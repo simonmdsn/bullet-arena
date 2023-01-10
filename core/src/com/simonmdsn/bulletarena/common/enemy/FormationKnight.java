@@ -12,7 +12,6 @@ import com.dongbat.jbump.World;
 import com.simonmdsn.bulletarena.assets.Assets;
 import com.simonmdsn.bulletarena.common.player.Player;
 
-import java.time.Instant;
 
 public class FormationKnight extends Enemy {
 
@@ -30,9 +29,7 @@ public class FormationKnight extends Enemy {
         if (btree == null) {
             btree = new BehaviorTree<>(createKnightBehavior(player, world, assets, stage, engine), this);
         }
-        long time = System.nanoTime();
         btree.step();
-        System.out.println("Time: " + (System.nanoTime() - time));
     }
 
     @Override
