@@ -38,7 +38,6 @@ public class Player extends ActorEntity {
         entity().add(collisionComponent);
         entity().add(healthComponent);
         entity().add(statsComponent);
-        System.out.println("player width=" + sprite.getWidth() + " height=" + sprite.getHeight());
         sprite.setScale(0.5f);
         sprite.setOriginCenter();
         System.out.println(sprite.getWidth() * sprite.getScaleX());

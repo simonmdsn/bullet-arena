@@ -4,18 +4,15 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.ai.btree.*;
 import com.badlogic.gdx.ai.btree.branch.RandomSelector;
-import com.badlogic.gdx.ai.btree.branch.Selector;
 import com.badlogic.gdx.ai.btree.branch.Sequence;
 import com.badlogic.gdx.ai.btree.decorator.AlwaysFail;
-import com.badlogic.gdx.ai.btree.decorator.AlwaysSucceed;
-import com.badlogic.gdx.ai.btree.decorator.Invert;
-import com.badlogic.gdx.ai.btree.decorator.Random;
-import com.badlogic.gdx.ai.utils.random.FloatDistribution;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.dongbat.jbump.World;
 import com.simonmdsn.bulletarena.assets.Assets;
 import com.simonmdsn.bulletarena.common.player.Player;
+
+import java.time.Instant;
 
 public class FormationKnight extends Enemy {
 
@@ -29,11 +26,13 @@ public class FormationKnight extends Enemy {
     }
 
     @Override
-    public void move(Entity entity, Assets assets, Player player, World world, Engine engine, Stage stage, float delta) {
+    public void act(Entity entity, Assets assets, Player player, World world, Engine engine, Stage stage, float delta) {
         if (btree == null) {
             btree = new BehaviorTree<>(createKnightBehavior(player, world, assets, stage, engine), this);
         }
+        long time = System.nanoTime();
         btree.step();
+        System.out.println("Time: " + (System.nanoTime() - time));
     }
 
     @Override
@@ -44,7 +43,7 @@ public class FormationKnight extends Enemy {
 
     private Task<Enemy> createKnightBehavior(Player player, World world, Assets assets, Stage stage, Engine engine) {
         Sequence<Enemy> sequence = new Sequence<>();
-        AttackTask attackTask = new AttackTask(1000, player, shooterComponent(), entity(), assets, stage, world, engine, 150, 400);
+        Attack attackTask = new Attack(1000, player, shooterComponent(), entity(), assets, stage, world, engine, 150, 400);
         FormationTask formationTask = new FormationTask(entity().getComponent(FormationComponent.class).formationNumber(), player, world);
         RandomSelector<Enemy> randomSelector = new RandomSelector<>();
         randomSelector.addChild(formationTask);
@@ -61,8 +60,8 @@ public class FormationKnight extends Enemy {
         }));
         AttackAllDirections attackAllDirections = new AttackAllDirections(1000, shooterComponent(), entity(), assets, stage, world, engine, 100, 400);
         sequence.addChild(randomSelector);
-        sequence.addChild(attackTask);
         sequence.addChild(attackAllDirections);
+        sequence.addChild(attackTask);
         return sequence;
     }
 }

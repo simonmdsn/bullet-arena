@@ -8,12 +8,12 @@ import com.dongbat.jbump.Response;
 import com.dongbat.jbump.World;
 import com.simonmdsn.bulletarena.common.player.Player;
 
-public class MoveTowardsPlayerTask extends LeafTask<Enemy> {
+public class MoveTowardsPlayer extends LeafTask<Enemy> {
 
     private final Player player;
     private final World world;
 
-    public MoveTowardsPlayerTask(Player player, World world) {
+    public MoveTowardsPlayer(Player player, World world) {
         this.player = player;
         this.world = world;
     }

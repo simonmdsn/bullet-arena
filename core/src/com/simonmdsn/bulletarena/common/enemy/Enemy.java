@@ -99,7 +99,7 @@ public class Enemy extends ActorEntity {
         return itemEntityComponent;
     }
 
-    public void move(Entity entity, Assets assets, Player player, World world, Engine engine, Stage stage, float delta) {
+    public void act(Entity entity, Assets assets, Player player, World world, Engine engine, Stage stage, float delta) {
         RenderComponent enemyRenderComponent = rm.get(entity);
         RenderComponent playerRenderComponent = rm.get(player.entity());
         ItemEntityComponent itemEntityComponent = iem.get(entity);

@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Align;
 import com.simonmdsn.bulletarena.common.entity.component.RenderComponent;
 
 
-public abstract class ActorEntity extends Actor {
+public class ActorEntity extends Actor {
     private final Entity entity = new Entity();
     private final Sprite sprite;
 

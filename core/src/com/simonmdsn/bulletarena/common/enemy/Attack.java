@@ -16,7 +16,7 @@ import com.simonmdsn.bulletarena.common.entity.component.ShooterComponent;
 import com.simonmdsn.bulletarena.common.player.Player;
 
 
-public class AttackTask extends LeafTask<Enemy> {
+public class Attack extends LeafTask<Enemy> {
 
     private final float range;
     private final Player player;
@@ -29,8 +29,8 @@ public class AttackTask extends LeafTask<Enemy> {
     private float bulletTravelSpeed;
     private float maxTravelDistance;
 
-    public AttackTask(float range, Player player, ShooterComponent shooterComponent, Entity entity, Assets assets, Stage stage,
-                      World world, Engine engine, float bulletTravelSpeed, float maxTravelDistance) {
+    public Attack(float range, Player player, ShooterComponent shooterComponent, Entity entity, Assets assets, Stage stage,
+                  World world, Engine engine, float bulletTravelSpeed, float maxTravelDistance) {
         this.range = range;
         this.player = player;
         this.shooterComponent = shooterComponent;

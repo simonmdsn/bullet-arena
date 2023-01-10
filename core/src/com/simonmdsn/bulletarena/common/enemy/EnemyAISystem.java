@@ -4,23 +4,14 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Align;
-import com.dongbat.jbump.CollisionFilter;
-import com.dongbat.jbump.Response;
 import com.dongbat.jbump.World;
 import com.simonmdsn.bulletarena.assets.Assets;
-import com.simonmdsn.bulletarena.common.CollidableTerrain;
-import com.simonmdsn.bulletarena.common.entity.BulletEntity;
 import com.simonmdsn.bulletarena.common.entity.component.*;
 import com.simonmdsn.bulletarena.common.player.Player;
 
-public class EnemyMovementSystem extends IteratingSystem {
+public class EnemyAISystem extends IteratingSystem {
     ComponentMapper<EnemyComponent> em = ComponentMapper.getFor(EnemyComponent.class);
 
 
@@ -29,7 +20,7 @@ public class EnemyMovementSystem extends IteratingSystem {
     private final Stage stage;
     private final Assets assets;
 
-    public EnemyMovementSystem(World<Actor> world, Player player, Stage stage, Assets assets) {
+    public EnemyAISystem(World<Actor> world, Player player, Stage stage, Assets assets) {
         super(Family.all(EnemyComponent.class).get());
         this.world = world;
         this.player = player;
@@ -40,7 +31,7 @@ public class EnemyMovementSystem extends IteratingSystem {
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        em.get(entity).enemy().move(entity, assets, player, world, getEngine(), stage, deltaTime);
+        em.get(entity).enemy().act(entity, assets, player, world, getEngine(), stage, deltaTime);
     }
 
 
