@@ -60,8 +60,8 @@ public class EnemyBulletSystem extends IteratingSystem {
                         bulletComponent.collided(true);
                         return Response.touch;
                     }
-                    if (other.userData instanceof ActorEntity entity1) {
-
+                    if (other.userData instanceof ActorEntity) {
+                        ActorEntity entity1 = (ActorEntity) other.userData;
                         if (cm.has(entity1.entity())) {
                             CollisionComponent collisionComponent = cm.get(entity1.entity());
                             if (collisionComponent.collisionTags().stream().anyMatch(collidables::contains)) {

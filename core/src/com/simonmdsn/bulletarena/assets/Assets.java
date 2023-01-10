@@ -1,5 +1,6 @@
 package com.simonmdsn.bulletarena.assets;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,7 +15,7 @@ import java.io.File;
 public class Assets {
 
     private final AssetManager assetManager;
-    private final static String assetsFolder = "assets/";
+    private final static String assetsFolder = Gdx.files.internal("").file().getAbsolutePath();
     private final BitmapFont bitmapFont = new BitmapFont();
 
     public Assets() {
@@ -33,25 +34,23 @@ public class Assets {
                 iterateFiles(listFile);
             }
         } else {
-            String pathToFile = file.getPath().substring(assetsFolder.length());
+            System.out.println("Loading asset: " + file.getAbsolutePath());
+            String pathToFile = file.getPath().substring(assetsFolder.length() +1);
             String[] dots = pathToFile.split("\\.");
             String fileExtension = dots[dots.length - 1];
-            switch (fileExtension) {
-                case "jpg", "png" -> assetManager.load(pathToFile, Texture.class);
-                case "tmx", "tsx" -> {
-                    if (fileExtension.equals("tsx")) return;
-                    if (assetManager.getLoader(TiledMap.class) == null) {
-                        assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-                    }
-                    assetManager.load(pathToFile, TiledMap.class);
+            if ("jpg".equals(fileExtension) || "png".equals(fileExtension)) {
+                assetManager.load(pathToFile, Texture.class);
+            } else if ("tmx".equals(fileExtension) || "tsx".equals(fileExtension)) {
+                if (fileExtension.equals("tsx")) return;
+                if (assetManager.getLoader(TiledMap.class) == null) {
+                    assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
                 }
-                case "party" -> {
-                    assetManager.load(pathToFile, ParticleEffect.class);
-                }
-                case "ttf" -> {
-
-                }
-                default -> throw new UnsupportedOperationException("Asset Manager does not support file extension " + fileExtension);
+                assetManager.load(pathToFile, TiledMap.class);
+            } else if ("party".equals(fileExtension)) {
+                assetManager.load(pathToFile, ParticleEffect.class);
+            } else if ("ttf".equals(fileExtension)) {
+            } else {
+                System.out.println("Asset Manager does not support file extension " + fileExtension);
             }
         }
     }
@@ -86,6 +85,9 @@ public class Assets {
 
     public Texture defaultBullet() {
         return assetManager.get("base-bullet.png", Texture.class);
+    }
+    public Texture laserBullet() {
+        return assetManager.get("laser.png", Texture.class);
     }
 
     public Texture arrow() {

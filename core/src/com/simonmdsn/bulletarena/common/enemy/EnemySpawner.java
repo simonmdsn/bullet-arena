@@ -38,10 +38,21 @@ public class EnemySpawner extends IntervalSystem {
         ImmutableArray<Entity> entitiesFor = getEngine().getEntitiesFor(Family.one(PlayerComponent.class).get());
         if(entitiesFor.size() <= 0) return;
         Entity player = entitiesFor.first();
-//        Enemy enemy = ThreadLocalRandom.current().nextBoolean() ? new Enemy(new Sprite(ThreadLocalRandom.current().nextInt(0, 2) > 0 ?
-//                                                                               assets.redMonster1() :
-//                                                           assets.redMonster2()), 100, assets, 200) : new SlimeEnemy(assets);
-        Enemy enemy = new FormationKnight(assets);
+        int i = ThreadLocalRandom.current().nextInt(3);
+        Enemy enemy = null;
+        switch (i) {
+            case 0:
+                enemy = new Enemy(new Sprite(ThreadLocalRandom.current().nextInt(0, 2) > 0 ?
+                        assets.redMonster1() :
+                        assets.redMonster2()),100,assets,200);
+                break;
+            case 1:
+                enemy = new FormationKnight(assets);
+                break;
+            case 2:
+                enemy = new SlimeEnemy(assets);
+                break;
+        }
         RenderComponent playerRC = rm.get(player);
         Vector2 vec = randomSpawnPoint(playerRC.actor().getX(), playerRC.actor().getY());
         enemy.setPosition(vec.x,vec.y);

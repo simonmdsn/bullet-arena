@@ -138,7 +138,7 @@ public class Enemy extends ActorEntity {
 
     public CollisionFilter getCollisionFilter() {
         return (item, other) -> {
-            if (other.userData instanceof CollidableTerrain terrain) {
+            if (other.userData instanceof CollidableTerrain) {
                 return Response.slide;
             }
             return null;

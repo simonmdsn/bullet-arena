@@ -1,4 +1,4 @@
-sourceCompatibility = 1.17
+sourceCompatibility = '11'
 sourceSets.main.java.srcDirs = [ "src/" ]
 sourceSets.main.resources.srcDirs = ["../assets"]
 def osName = System.getProperty('os.name').toLowerCase(Locale.ROOT)
@@ -76,7 +76,7 @@ task jpackage(type: Exec, dependsOn: dist) {
     workingDir project.projectDir
     def commands = [
             "jpackage",
-            '--dest', "${buildDir}/distribution",
+            '--dest', "${buildDir}/distributionss",
             '--input', "${buildDir}/libs",
             '--name', project.appName,
             '--main-class', project.mainClassName,

@@ -69,7 +69,6 @@ public class BulletArenaGame extends ApplicationAdapter {
         FillViewport fillViewport = new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
         stage = new Stage(fillViewport, batch);
         player = new Player(camera, new Sprite(assets.superHero()));
-
         staticStage = new Stage(new ExtendViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), new OrthographicCamera()), batch);
         playerHud = new PlayerHud(staticStage, player);
         shapeRenderer = new ShapeRenderer();
@@ -114,41 +113,43 @@ public class BulletArenaGame extends ApplicationAdapter {
         stage.draw();
         orthogonalTiledMapRenderer.render(new int[0]);
 
-        for (Item item : world.getItems()) {
-            if (item.userData instanceof ActorEntity actorEntity) {
-
-                Sprite sprite = actorEntity.sprite();
-
-                shapeRenderer.setProjectionMatrix(camera.combined);
-                shapeRenderer.setAutoShapeType(true);
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-                shapeRenderer.rect(sprite.getX(),
-                                   sprite.getY(),
-                                   sprite.getOriginX(),
-                                   sprite.getOriginY(),
-                                   sprite.getWidth(),
-                                   sprite.getHeight(),
-                                   sprite.getScaleX(),
-                                   sprite.getScaleY(),
-                                   sprite.getRotation());
-                shapeRenderer.end();
-            }
-            if (item.userData instanceof CollidableTerrain collidableTerrain) {
-                shapeRenderer.setProjectionMatrix(camera.combined);
-                shapeRenderer.setAutoShapeType(true);
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-                shapeRenderer.rect(collidableTerrain.x(),
-                                   collidableTerrain.y(),
-                                   collidableTerrain.getOriginX(),
-                                   collidableTerrain.getOriginY(),
-                                   16,
-                                   16,
-                                   4,
-                                   4,
-                                   0);
-                shapeRenderer.end();
-            }
-        }
+//        for (Item item : world.getItems()) {
+//            if (item.userData instanceof ActorEntity) {
+//
+//                ActorEntity actorEntity = (ActorEntity) item.userData;
+//                Sprite sprite = actorEntity.sprite();
+//
+//                shapeRenderer.setProjectionMatrix(camera.combined);
+//                shapeRenderer.setAutoShapeType(true);
+//                shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+//                shapeRenderer.rect(sprite.getX(),
+//                                   sprite.getY(),
+//                                   sprite.getOriginX(),
+//                                   sprite.getOriginY(),
+//                                   sprite.getWidth(),
+//                                   sprite.getHeight(),
+//                                   sprite.getScaleX(),
+//                                   sprite.getScaleY(),
+//                                   sprite.getRotation());
+//                shapeRenderer.end();
+//            }
+//            if (item.userData instanceof CollidableTerrain) {
+//                CollidableTerrain collidableTerrain = (CollidableTerrain) item.userData;
+//                shapeRenderer.setProjectionMatrix(camera.combined);
+//                shapeRenderer.setAutoShapeType(true);
+//                shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+//                shapeRenderer.rect(collidableTerrain.x(),
+//                                   collidableTerrain.y(),
+//                                   collidableTerrain.getOriginX(),
+//                                   collidableTerrain.getOriginY(),
+//                                   16,
+//                                   16,
+//                                   4,
+//                                   4,
+//                                   0);
+//                shapeRenderer.end();
+//            }
+//        }
         batch.begin();
         for (ParticleEffect particleEffect : particleEffectList) {
             particleEffect.draw(batch, Gdx.graphics.getDeltaTime());

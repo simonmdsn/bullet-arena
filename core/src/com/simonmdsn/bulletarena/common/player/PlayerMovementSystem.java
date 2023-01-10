@@ -103,7 +103,7 @@ public class PlayerMovementSystem extends IteratingSystem {
             Vector3 unproject = camera.unproject(new Vector3(x, y, 0));
             Vector2 dir =
                     new Vector2(unproject.x - sprite.getX(), unproject.y - sprite.getY()).nor();
-            Sprite bulletSprite = new Sprite(new Texture("base-bullet.png"));
+            Sprite bulletSprite = new Sprite(assets.laserBullet());
             BulletEntity bulletEntity = new BulletEntity(bulletSprite, new PlayerBulletComponent(300,dir, 1000, entity, assets.get(
                     "square-splash.party", ParticleEffect.class)));
             bulletEntity.sprite().setOriginCenter();
@@ -150,7 +150,7 @@ public class PlayerMovementSystem extends IteratingSystem {
 
     private CollisionFilter getCollisionFilter() {
         return (item, other) -> {
-            if (other.userData instanceof CollidableTerrain terrain) {
+            if (other.userData instanceof CollidableTerrain) {
                 return Response.slide;
             }
             return null;

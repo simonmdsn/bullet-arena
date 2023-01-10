@@ -2,13 +2,15 @@ package com.simonmdsn.bulletarena.common.enemy;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.ai.btree.BehaviorTree;
-import com.badlogic.gdx.ai.btree.BranchTask;
-import com.badlogic.gdx.ai.btree.SingleRunningChildBranch;
-import com.badlogic.gdx.ai.btree.Task;
+import com.badlogic.gdx.ai.btree.*;
+import com.badlogic.gdx.ai.btree.branch.RandomSelector;
 import com.badlogic.gdx.ai.btree.branch.Selector;
 import com.badlogic.gdx.ai.btree.branch.Sequence;
+import com.badlogic.gdx.ai.btree.decorator.AlwaysFail;
+import com.badlogic.gdx.ai.btree.decorator.AlwaysSucceed;
 import com.badlogic.gdx.ai.btree.decorator.Invert;
+import com.badlogic.gdx.ai.btree.decorator.Random;
+import com.badlogic.gdx.ai.utils.random.FloatDistribution;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.dongbat.jbump.World;
@@ -44,8 +46,23 @@ public class FormationKnight extends Enemy {
         Sequence<Enemy> sequence = new Sequence<>();
         AttackTask attackTask = new AttackTask(1000, player, shooterComponent(), entity(), assets, stage, world, engine, 150, 400);
         FormationTask formationTask = new FormationTask(entity().getComponent(FormationComponent.class).formationNumber(), player, world);
-        sequence.addChild(formationTask);
+        RandomSelector<Enemy> randomSelector = new RandomSelector<>();
+        randomSelector.addChild(formationTask);
+        randomSelector.addChild(new AlwaysFail<>(new LeafTask<Enemy>() {
+            @Override
+            public Status execute() {
+                return Status.FAILED;
+            }
+
+            @Override
+            protected Task<Enemy> copyTo(Task<Enemy> task) {
+                return null;
+            }
+        }));
+        AttackAllDirections attackAllDirections = new AttackAllDirections(1000, shooterComponent(), entity(), assets, stage, world, engine, 100, 400);
+        sequence.addChild(randomSelector);
         sequence.addChild(attackTask);
+        sequence.addChild(attackAllDirections);
         return sequence;
     }
 }
