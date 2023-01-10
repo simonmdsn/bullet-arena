@@ -15,7 +15,7 @@ import java.io.File;
 public class Assets {
 
     private final AssetManager assetManager;
-    private final static String assetsFolder = Gdx.files.internal("assets").file().getAbsolutePath();
+    private final static String assetsFolder = Gdx.files.internal("").file().getAbsolutePath();
     private final BitmapFont bitmapFont = new BitmapFont();
 
     public Assets() {
