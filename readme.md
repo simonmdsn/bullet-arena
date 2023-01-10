@@ -10,7 +10,7 @@ open your terminal and cd into the bullet-arena project
 
 execute ```java -jar desktop-1.0.jar```
 
-# building from scratch
+# building from scratch (can be less pain free)
 
 you can clone from github:
 
