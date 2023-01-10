@@ -12,6 +12,10 @@ execute ```java -jar desktop-1.0.jar```
 
 # building from scratch (can be less pain free)
 
+make sure the ``Assets.class`` has the following value:
+
+``private final static String assetsFolder = Gdx.files.internal("assets").file().getAbsolutePath();``
+
 you can clone from github:
 
 ```git clone https://github.com/simonmdsn/bullet-arena.git```
